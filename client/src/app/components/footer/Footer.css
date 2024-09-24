@@ -1,0 +1,35 @@
+
+.footer {    
+    background-color: #003c467c;
+    color: #ffffff;
+    padding: 24px 32px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  
+  .footer p {
+    font-size: 14px;
+  }
+  
+  .socialLinks {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+  }  
+  
+  .socialLinks img {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .socialLinks a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .socialLinks a:hover {
+    opacity: 0.8;
+  }
+  
+  
