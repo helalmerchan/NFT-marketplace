@@ -48,9 +48,7 @@ export default function Profile() {
     return { itemsArray, sumPrice };
   }
  
-  useEffect(() => {
-
-  
+  useEffect(() => {  
     const fetchData = async () => {
       try {
         const { itemsArray, sumPrice } = await getNFTitems();

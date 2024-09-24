@@ -14,39 +14,39 @@ export default function Marketplace() {
   const [items, setItems] = useState();
   const { isConnected, signer } = useContext(WalletContext); 
   
+  async function getNFTitems() {
+    const itemsArray = [];
+    if (!signer) return;
+    let contract = new ethers.Contract(
+      MarketplaceJson.address,
+      MarketplaceJson.abi,
+      signer
+    );
 
-  useEffect(() => {
-    async function getNFTitems() {
-      const itemsArray = [];
-      if (!signer) return;
-      let contract = new ethers.Contract(
-        MarketplaceJson.address,
-        MarketplaceJson.abi,
-        signer
-      );
-  
-      let transaction = await contract.getAllListedNFTs();
-  
-      for (const i of transaction) {
-        const tokenId = parseInt(i.tokenId);
-        const tokenURI = await contract.tokenURI(tokenId);
-        const meta = (await axios.get(tokenURI)).data;
-        const price = ethers.formatEther(i.price);
-  
-        const item = {
-          price,
-          tokenId,
-          seller: i.seller,
-          owner: i.owner,
-          image: meta.image,
-          name: meta.name,
-          description: meta.description,
-        };
-  
-        itemsArray.push(item);
-      }
-      return itemsArray;
+    let transaction = await contract.getAllListedNFTs();
+
+    for (const i of transaction) {
+      const tokenId = parseInt(i.tokenId);
+      const tokenURI = await contract.tokenURI(tokenId);
+      const meta = (await axios.get(tokenURI)).data;
+      const price = ethers.formatEther(i.price);
+
+      const item = {
+        price,
+        tokenId,
+        seller: i.seller,
+        owner: i.owner,
+        image: meta.image,
+        name: meta.name,
+        description: meta.description,
+      };
+
+      itemsArray.push(item);
     }
+    return itemsArray;
+  }
+  useEffect(() => {
+    
     const fetchData = async () => {
       try {
         const itemsArray = await getNFTitems();
@@ -57,7 +57,7 @@ export default function Marketplace() {
     };
 
     fetchData();
-  }, [isConnected, signer]);
+  }, [isConnected]);
 
   return (
     <>
